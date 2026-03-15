@@ -12,7 +12,7 @@ app = typer.Typer()
 
 
 @app.command(name="list")
-def list_commands(ctx: typer.Context):
+def list_problems(ctx: typer.Context):
     """
     List the available problems
     """
