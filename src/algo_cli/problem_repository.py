@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from .models import ProblemDirectory
+from algo_cli.models import ProblemDirectory
 
-from .exceptions import (
+from algo_cli.exceptions import (
     InvalidBaseDirectory,
 )
 
@@ -13,7 +13,7 @@ class ProblemRepository:
             raise InvalidBaseDirectory(f"{base_problem_dir} is not a directory")
         self._base_problem_dir = base_problem_dir
 
-    def get_problem(self, problem_id: str) -> ProblemDirectory | None:
+    def get_problem(self, problem_id: str) -> ProblemDirectory:
         return ProblemDirectory(self._base_problem_dir / problem_id)
 
     def list_problems(self) -> list[ProblemDirectory]:

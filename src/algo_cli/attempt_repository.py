@@ -1,9 +1,9 @@
 import datetime
 from pathlib import Path
 
-from .exceptions import InvalidBaseDirectory
+from algo_cli.exceptions import InvalidBaseDirectory
 
-from .models import Attempt, AttemptDirectory, ProblemDirectory
+from algo_cli.models import Attempt, AttemptDirectory, ProblemDirectory
 
 
 ATTEMPT_ID_FORMAT = "%Y-%m-%dT%H-%M-%S"

@@ -4,7 +4,7 @@ from pathlib import Path
 
 from pydantic import BaseModel
 
-from .exceptions import (
+from algo_cli.exceptions import (
     AttemptDoesNotExist,
     MalformedAttemptDirectory,
     MalformedProblemDirectory,
