@@ -9,7 +9,7 @@ from algo_cli.commands.show import app as show_app
 from algo_cli.commands.start import app as start_app
 from algo_cli.commands.run_tests import app as test_app
 from algo_cli.problem_repository import ProblemRepository
-from algo_cli.version import app as version_app
+from algo_cli.commands.version import app as version_app
 
 
 APP_NAME = "algo-cli"

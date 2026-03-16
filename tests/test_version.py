@@ -1,5 +1,5 @@
 from algo_cli.main import app
-from algo_cli.version import __version__
+from algo_cli.commands.version import __version__
 
 
 def test_version(runner):
