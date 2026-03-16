@@ -26,6 +26,7 @@ class AttemptRepository:
         attempt_dir = AttemptDirectory(path=attempt_base)
         attempt_dir.attempt_path.write_text(attempt.model_dump_json())
         problem_dir.starter_path.copy(attempt_dir.solution_path)
+        problem_dir.tests_path.copy(attempt_dir.tests_path)
         return attempt_dir
 
     def get_attempt(self, problem_id: str, attempt_id: str) -> AttemptDirectory:

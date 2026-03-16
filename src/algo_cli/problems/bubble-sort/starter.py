@@ -1,2 +1,2 @@
 def main():
-    pass
+    return 2

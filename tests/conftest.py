@@ -57,6 +57,7 @@ def problem_directory_factory(base_problem_dir: Path):
         problem: Problem,
         prompt: str = "Some prompt",
         starter: str = "def main():\n    pass",
+        tests: str = "from attempt import main\n\ndef test_something():\n    assert True",
     ) -> ProblemDirectory:
         problem_base_path = base_problem_dir / problem.id
         problem_base_path.mkdir()
@@ -64,6 +65,7 @@ def problem_directory_factory(base_problem_dir: Path):
         problem_dir.problem_path.write_text(problem.model_dump_json())
         problem_dir.prompt_path.write_text(prompt)
         problem_dir.starter_path.write_text(starter)
+        problem_dir.tests_path.write_text(tests)
         return problem_dir
 
     yield create_problem_directory

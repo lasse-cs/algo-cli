@@ -37,6 +37,10 @@ class ProblemDirectory:
         return self.path / "starter.py"
 
     @property
+    def tests_path(self) -> Path:
+        return self.path / "tests.py"
+
+    @property
     def problem(self) -> Problem:
         if not hasattr(self, "_problem"):
             try:
@@ -82,6 +86,10 @@ class AttemptDirectory:
         return self.path / "solution.py"
 
     @property
+    def tests_path(self):
+        return self.path / "tests.py"
+
+    @property
     def attempt(self):
         if not hasattr(self, "_attempt"):
             try:
@@ -93,3 +101,10 @@ class AttemptDirectory:
                     f"Could not read attempt file at {self.attempt_path}"
                 ) from e
         return self._attempt
+
+
+@dataclass
+class RunTestResult:
+    success: bool
+    output: str
+    error: str

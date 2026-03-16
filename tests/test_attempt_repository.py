@@ -16,6 +16,7 @@ def test_create_attempt(attempt_repository, problem_directory_factory):
     assert attempt_directory.attempt.attempt_id == "2020-10-20T12-11-09"
     assert attempt_directory.attempt_path.exists()
     assert attempt_directory.solution_path.exists()
+    assert attempt_directory.tests_path.exists()
     assert (
         problem_directory.starter_path.read_text()
         == attempt_directory.solution_path.read_text()

@@ -7,6 +7,7 @@ from algo_cli.attempt_repository import AttemptRepository
 from algo_cli.commands.list import app as list_app
 from algo_cli.commands.show import app as show_app
 from algo_cli.commands.start import app as start_app
+from algo_cli.commands.run_tests import app as test_app
 from algo_cli.problem_repository import ProblemRepository
 from algo_cli.version import app as version_app
 
@@ -19,6 +20,7 @@ app.add_typer(version_app)
 app.add_typer(list_app)
 app.add_typer(show_app)
 app.add_typer(start_app)
+app.add_typer(test_app)
 
 
 class Config:
