@@ -1,2 +1,2 @@
-def main():
-    return 2
+def bubble_sort(array: list[int]) -> list[int]:
+    pass
