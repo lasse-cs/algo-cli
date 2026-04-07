@@ -11,7 +11,7 @@ console = Console()
 app = typer.Typer()
 
 
-@app.command(name="list")
+@app.command(name="problems")
 def list_problems(ctx: typer.Context):
     """
     List the available problems
