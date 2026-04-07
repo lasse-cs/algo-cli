@@ -4,6 +4,7 @@ from typing import Annotated
 import typer
 
 from algo_cli.attempt_repository import AttemptRepository
+from algo_cli.commands.edit import app as edit_app
 from algo_cli.commands.list import app as list_app
 from algo_cli.commands.show import app as show_app
 from algo_cli.commands.start import app as start_app
@@ -21,6 +22,7 @@ app.add_typer(list_app)
 app.add_typer(show_app)
 app.add_typer(start_app)
 app.add_typer(test_app)
+app.add_typer(edit_app)
 
 
 class Config:
