@@ -14,4 +14,4 @@ def all_problem_dirs() -> list[Path]:
 @pytest.mark.parametrize("problem_dir", all_problem_dirs(), ids=lambda path: path.name)
 def test_problem_tests_run_successfully(problem_dir: Path):
     result = run_pytest(cwd=problem_dir, test_target="tests.py")
-    assert result.success
+    assert result.success, result.output + " - " + result.error
