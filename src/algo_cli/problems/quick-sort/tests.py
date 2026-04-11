@@ -5,4 +5,5 @@ from solution import quick_sort
 
 @given(st.lists(st.integers()))
 def test_matches_builtin(items):
-    assert sorted(items) == quick_sort(items)
+    items_copy = items[:]
+    assert sorted(items_copy) == quick_sort(items)

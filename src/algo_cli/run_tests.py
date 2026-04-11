@@ -1,15 +1,9 @@
-import subprocess
-
-from algo_cli.models import AttemptDirectory, RunTestResult
+from algo_cli.models import AttemptDirectory
+from algo_cli.pytest_runner import run_pytest
 
 
 def run_tests(attempt_dir: AttemptDirectory):
-    result = subprocess.run(
-        ["pytest", str(attempt_dir.tests_path)],
-        capture_output=True,
-        text=True,
+    return run_pytest(
         cwd=attempt_dir.path,
-    )
-    return RunTestResult(
-        success=result.returncode == 0, output=result.stdout, error=result.stderr
+        test_target=attempt_dir.tests_path.name,
     )
