@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from functools import cached_property
 
 from pathlib import Path
 
@@ -40,29 +41,23 @@ class ProblemDirectory:
     def tests_path(self) -> Path:
         return self.path / "tests.py"
 
-    @property
+    @cached_property
     def problem(self) -> Problem:
-        if not hasattr(self, "_problem"):
-            try:
-                self._problem = Problem.model_validate_json(
-                    self.problem_path.read_text()
-                )
-            except (ValueError, OSError) as e:
-                raise MalformedProblemDirectory(
-                    f"Could not read problem file at {self.problem_path}"
-                ) from e
-        return self._problem
+        try:
+            return Problem.model_validate_json(self.problem_path.read_text())
+        except (ValueError, OSError) as e:
+            raise MalformedProblemDirectory(
+                f"Could not read problem file at {self.problem_path}"
+            ) from e
 
-    @property
+    @cached_property
     def prompt(self) -> str:
-        if not hasattr(self, "_prompt"):
-            try:
-                self._prompt = self.prompt_path.read_text()
-            except (ValueError, OSError) as e:
-                raise MalformedProblemDirectory(
-                    f"Could not read problem file at {self.prompt_path}"
-                ) from e
-        return self._prompt
+        try:
+            return self.prompt_path.read_text()
+        except (ValueError, OSError) as e:
+            raise MalformedProblemDirectory(
+                f"Could not read problem file at {self.prompt_path}"
+            ) from e
 
 
 class Attempt(BaseModel):
@@ -89,18 +84,14 @@ class AttemptDirectory:
     def tests_path(self):
         return self.path / "tests.py"
 
-    @property
+    @cached_property
     def attempt(self):
-        if not hasattr(self, "_attempt"):
-            try:
-                self._attempt = Attempt.model_validate_json(
-                    self.attempt_path.read_text()
-                )
-            except (ValueError, OSError) as e:
-                raise MalformedAttemptDirectory(
-                    f"Could not read attempt file at {self.attempt_path}"
-                ) from e
-        return self._attempt
+        try:
+            return Attempt.model_validate_json(self.attempt_path.read_text())
+        except (ValueError, OSError) as e:
+            raise MalformedAttemptDirectory(
+                f"Could not read attempt file at {self.attempt_path}"
+            ) from e
 
 
 @dataclass
