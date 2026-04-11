@@ -1,8 +1,8 @@
 import typer
 from rich.console import Console
 
+from algo_cli.config import Config
 from algo_cli.exceptions import AttemptDoesNotExist
-from algo_cli.models import AttemptDirectory
 from algo_cli.run_tests import run_tests as test_runner
 
 
@@ -13,12 +13,12 @@ app = typer.Typer()
 
 
 @app.command(name="test")
-def run_tests(ctx: typer.Context, problem_id: str, attempt_id: str):
+def run_tests(problem_id: str, attempt_id: str):
     """
     Run the tests for an attempt to a problem
     """
     try:
-        attempt_dir: AttemptDirectory = ctx.obj.attempt_repository.get_attempt(
+        attempt_dir = Config.get().attempt_repository.get_attempt(
             problem_id, attempt_id
         )
     except AttemptDoesNotExist:

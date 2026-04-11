@@ -1,8 +1,8 @@
 import typer
 from rich.console import Console
 
+from algo_cli.config import Config
 from algo_cli.exceptions import AttemptDoesNotExist
-from algo_cli.models import AttemptDirectory
 
 
 err_console = Console(stderr=True)
@@ -12,12 +12,12 @@ app = typer.Typer()
 
 
 @app.command(name="edit")
-def edit(ctx: typer.Context, problem_id: str, attempt_id: str):
+def edit(problem_id: str, attempt_id: str):
     """
     Open an editor to edit the attempt for a problem
     """
     try:
-        attempt_dir: AttemptDirectory = ctx.obj.attempt_repository.get_attempt(
+        attempt_dir = Config.get().attempt_repository.get_attempt(
             problem_id, attempt_id
         )
     except AttemptDoesNotExist:
