@@ -6,6 +6,7 @@ import pytest
 from typer.testing import CliRunner
 
 from algo_cli.attempt_repository import AttemptRepository
+from algo_cli.current_state_repository import CurrentStateRepository
 from algo_cli.models import Problem, ProblemDirectory
 from algo_cli.problem_repository import ProblemRepository
 
@@ -32,6 +33,13 @@ def base_problem_dir(base_dir: Path):
 
 
 @pytest.fixture()
+def base_state_dir(base_dir: Path):
+    state_dir = base_dir / "state"
+    state_dir.mkdir()
+    yield state_dir
+
+
+@pytest.fixture()
 def attempt_repository(base_attempt_dir: Path):
     yield AttemptRepository(base_attempt_dir)
 
@@ -41,10 +49,18 @@ def problem_repository(base_problem_dir: Path):
     yield ProblemRepository(base_problem_dir)
 
 
+@pytest.fixture()
+def current_state_repository(base_state_dir: Path):
+    yield CurrentStateRepository(base_state_dir)
+
+
 @pytest.fixture(autouse=True)
-def test_env(monkeypatch, base_problem_dir: Path, base_attempt_dir: Path):
+def test_env(
+    monkeypatch, base_problem_dir: Path, base_attempt_dir: Path, base_state_dir: Path
+):
     monkeypatch.setenv("ALGO_CLI_PROBLEM_DIR", str(base_problem_dir))
     monkeypatch.setenv("ALGO_CLI_ATTEMPT_DIR", str(base_attempt_dir))
+    monkeypatch.setenv("ALGO_CLI_STATE_DIR", str(base_state_dir))
 
 
 @pytest.fixture()

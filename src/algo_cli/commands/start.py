@@ -6,6 +6,7 @@ from rich.console import Console
 from algo_cli.commands.common import complete_problem_id
 from algo_cli.config import Config
 from algo_cli.exceptions import ProblemDoesNotExist
+from algo_cli.models import CurrentState
 
 
 err_console = Console(stderr=True)
@@ -28,6 +29,12 @@ def start_attempt(
         err_console.print(f"No problem with id {id}")
         raise typer.Exit(1)
     attempt_dir = config.attempt_repository.create_attempt(problem_dir)
+    config.current_state_repository.set_current_state(
+        CurrentState(
+            problem_id=attempt_dir.attempt.problem_id,
+            attempt_id=attempt_dir.attempt.attempt_id,
+        )
+    )
     console.print(
         f"Created {attempt_dir.attempt.attempt_id} for {attempt_dir.attempt.problem_id}."
     )

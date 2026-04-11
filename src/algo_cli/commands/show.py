@@ -18,13 +18,24 @@ app = typer.Typer()
 
 @app.command(name="show")
 def show_problem(
-    id: Annotated[str, typer.Argument(autocompletion=complete_problem_id)],
+    id: Annotated[
+        str | None, typer.Argument(autocompletion=complete_problem_id)
+    ] = None,
 ):
     """
     Show a problem by id
     """
+    config = Config.get()
+    if id is None:
+        state = config.current_state_repository.get_current_state()
+        id = state.problem_id
+    if id is None:
+        err_console.print(
+            "No current problem set. Provide a problem id or start an attempt first."
+        )
+        raise typer.Exit(1)
     try:
-        problem_dir = Config.get().problem_repository.get_problem(id)
+        problem_dir = config.problem_repository.get_problem(id)
     except ProblemDoesNotExist:
         err_console.print(f"No problem with id {id}")
         raise typer.Exit(1)

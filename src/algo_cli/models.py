@@ -99,3 +99,8 @@ class RunTestResult:
     success: bool
     output: str
     error: str
+
+
+class CurrentState(BaseModel):
+    problem_id: str | None = None
+    attempt_id: str | None = None

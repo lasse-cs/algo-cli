@@ -20,3 +20,7 @@ class MalformedAttemptDirectory(AlgoCliException):
 
 class AttemptDoesNotExist(AlgoCliException):
     pass
+
+
+class MalformedCurrentState(AlgoCliException):
+    pass

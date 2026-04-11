@@ -38,3 +38,16 @@ def test_start_multiple_attempts(
     assert result.exit_code == 0
 
     assert len(attempt_repository.list_attempts("p1")) == 2
+
+
+@pytest.mark.time_machine(dt.datetime(2020, 10, 20, 12, 11, 9))
+def test_start_sets_current_state(
+    problem_directory_factory, current_state_repository, runner
+):
+    problem = Problem(id="p1", title="problem1")
+    problem_directory_factory(problem)
+    result = runner.invoke(app, ["start", "p1"])
+    assert result.exit_code == 0
+    state = current_state_repository.get_current_state()
+    assert state.problem_id == "p1"
+    assert state.attempt_id == "2020-10-20T12-11-09"
