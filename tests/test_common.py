@@ -7,7 +7,7 @@ from algo_cli.commands.common import complete_problem_id, complete_attempt_id
 from algo_cli.models import Problem
 
 
-def test_complete_problem_id(problem_directory_factory, test_env):
+def test_complete_problem_id(problem_directory_factory):
     problems = [
         Problem(id="alpha", title="alpha"),
         Problem(id="aleph", title="aleph"),
@@ -20,7 +20,7 @@ def test_complete_problem_id(problem_directory_factory, test_env):
     assert set(completed_problem_ids) == {"alpha", "aleph"}
 
 
-def test_complete_problem_id_no_matches(problem_directory_factory, test_env):
+def test_complete_problem_id_no_matches(problem_directory_factory):
     problems = [
         Problem(id="alpha", title="alpha"),
         Problem(id="aleph", title="aleph"),
@@ -34,7 +34,7 @@ def test_complete_problem_id_no_matches(problem_directory_factory, test_env):
 
 
 @pytest.mark.time_machine(dt.datetime(2020, 10, 20, 12, 11, 9))
-def test_complete_attempt_id(problem_directory_factory, attempt_repository, test_env):
+def test_complete_attempt_id(problem_directory_factory, attempt_repository):
     problems = [
         Problem(id="alpha", title="alpha"),
         Problem(id="aleph", title="aleph"),
@@ -49,9 +49,7 @@ def test_complete_attempt_id(problem_directory_factory, attempt_repository, test
 
 
 @pytest.mark.time_machine(dt.datetime(2020, 10, 20, 12, 11, 9))
-def test_complete_attempt_id_no_matches(
-    problem_directory_factory, attempt_repository, test_env
-):
+def test_complete_attempt_id_no_matches(problem_directory_factory, attempt_repository):
     problems = [
         Problem(id="alpha", title="alpha"),
         Problem(id="aleph", title="aleph"),
@@ -66,9 +64,7 @@ def test_complete_attempt_id_no_matches(
 
 
 @pytest.mark.time_machine(dt.datetime(2020, 10, 20, 12, 11, 9))
-def test_complete_attempt_id_no_(
-    problem_directory_factory, attempt_repository, test_env
-):
+def test_complete_attempt_id_no_(problem_directory_factory, attempt_repository):
     problems = [
         Problem(id="alpha", title="alpha"),
         Problem(id="aleph", title="aleph"),
