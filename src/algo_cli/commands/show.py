@@ -1,3 +1,5 @@
+from typing import Annotated
+
 import typer
 from rich.console import Console
 from rich.markdown import Markdown
@@ -5,7 +7,7 @@ from rich.panel import Panel
 
 from algo_cli.config import Config
 from algo_cli.exceptions import ProblemDoesNotExist
-
+from algo_cli.commands.common import complete_problem_id
 
 console = Console()
 err_console = Console(stderr=True)
@@ -15,7 +17,9 @@ app = typer.Typer()
 
 
 @app.command(name="show")
-def show_problem(id: str):
+def show_problem(
+    id: Annotated[str, typer.Argument(autocompletion=complete_problem_id)],
+):
     """
     Show a problem by id
     """

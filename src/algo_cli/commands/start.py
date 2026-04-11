@@ -1,6 +1,9 @@
+from typing import Annotated
+
 import typer
 from rich.console import Console
 
+from algo_cli.commands.common import complete_problem_id
 from algo_cli.config import Config
 from algo_cli.exceptions import ProblemDoesNotExist
 
@@ -12,7 +15,9 @@ app = typer.Typer()
 
 
 @app.command(name="start")
-def start_attempt(id: str):
+def start_attempt(
+    id: Annotated[str, typer.Argument(autocompletion=complete_problem_id)],
+):
     """
     Start an attempt for a problem by id
     """

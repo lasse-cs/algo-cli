@@ -1,7 +1,10 @@
+from typing import Annotated
+
 import typer
 from rich.console import Console
 from rich.table import Table
 
+from algo_cli.commands.common import complete_problem_id
 from algo_cli.config import Config
 from algo_cli.exceptions import ProblemDoesNotExist
 from algo_cli.models import Attempt
@@ -14,7 +17,9 @@ app = typer.Typer()
 
 
 @app.command(name="attempts")
-def list_attempts(problem_id: str):
+def list_attempts(
+    problem_id: Annotated[str, typer.Argument(autocompletion=complete_problem_id)],
+):
     """
     List the available attempts for a problem
     """

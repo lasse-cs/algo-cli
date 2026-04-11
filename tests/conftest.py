@@ -42,13 +42,14 @@ def problem_repository(base_problem_dir: Path):
 
 
 @pytest.fixture
-def runner(base_problem_dir: Path, base_attempt_dir: Path):
-    yield CliRunner(
-        env={
-            "ALGO_CLI_PROBLEM_DIR": str(base_problem_dir),
-            "ALGO_CLI_ATTEMPT_DIR": str(base_attempt_dir),
-        }
-    )
+def test_env(monkeypatch, base_problem_dir: Path, base_attempt_dir: Path):
+    monkeypatch.setenv("ALGO_CLI_PROBLEM_DIR", str(base_problem_dir))
+    monkeypatch.setenv("ALGO_CLI_ATTEMPT_DIR", str(base_attempt_dir))
+
+
+@pytest.fixture
+def runner(test_env):
+    yield CliRunner()
 
 
 @pytest.fixture()

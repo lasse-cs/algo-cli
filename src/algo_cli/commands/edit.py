@@ -1,6 +1,9 @@
+from typing import Annotated
+
 import typer
 from rich.console import Console
 
+from algo_cli.commands.common import complete_attempt_id, complete_problem_id
 from algo_cli.config import Config
 from algo_cli.exceptions import AttemptDoesNotExist
 
@@ -12,7 +15,10 @@ app = typer.Typer()
 
 
 @app.command(name="edit")
-def edit(problem_id: str, attempt_id: str):
+def edit(
+    problem_id: Annotated[str, typer.Argument(autocompletion=complete_problem_id)],
+    attempt_id: Annotated[str, typer.Argument(autocompletion=complete_attempt_id)],
+):
     """
     Open an editor to edit the attempt for a problem
     """
