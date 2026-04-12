@@ -45,6 +45,7 @@ def run_tests(
         )
         raise typer.Exit(1)
     result = test_runner(attempt_dir)
+    config.stats_repository.record(problem_id, result.success)
     if result.success:
         console.print("[bold green]Success![/bold green]")
     else:

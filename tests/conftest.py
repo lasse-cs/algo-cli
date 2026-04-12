@@ -9,6 +9,7 @@ from algo_cli.attempt_repository import AttemptRepository
 from algo_cli.current_state_repository import CurrentStateRepository
 from algo_cli.models import Problem, ProblemDirectory
 from algo_cli.problem_repository import ProblemRepository
+from algo_cli.stats_repository import StatsRepository
 
 time_machine.naive_mode = time_machine.NaiveMode.LOCAL
 
@@ -40,6 +41,13 @@ def base_state_dir(base_dir: Path):
 
 
 @pytest.fixture()
+def base_stats_dir(base_dir: Path):
+    stats_dir = base_dir / "stats"
+    stats_dir.mkdir()
+    yield stats_dir
+
+
+@pytest.fixture()
 def attempt_repository(base_attempt_dir: Path):
     yield AttemptRepository(base_attempt_dir)
 
@@ -54,13 +62,23 @@ def current_state_repository(base_state_dir: Path):
     yield CurrentStateRepository(base_state_dir)
 
 
+@pytest.fixture()
+def stats_repository(base_stats_dir: Path):
+    yield StatsRepository(base_stats_dir)
+
+
 @pytest.fixture(autouse=True)
 def test_env(
-    monkeypatch, base_problem_dir: Path, base_attempt_dir: Path, base_state_dir: Path
+    monkeypatch,
+    base_problem_dir: Path,
+    base_attempt_dir: Path,
+    base_state_dir: Path,
+    base_stats_dir: Path,
 ):
     monkeypatch.setenv("ALGO_CLI_PROBLEM_DIR", str(base_problem_dir))
     monkeypatch.setenv("ALGO_CLI_ATTEMPT_DIR", str(base_attempt_dir))
     monkeypatch.setenv("ALGO_CLI_STATE_DIR", str(base_state_dir))
+    monkeypatch.setenv("ALGO_CLI_STATS_DIR", str(base_stats_dir))
 
 
 @pytest.fixture()

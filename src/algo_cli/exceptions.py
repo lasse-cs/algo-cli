@@ -24,3 +24,7 @@ class AttemptDoesNotExist(AlgoCliException):
 
 class MalformedCurrentState(AlgoCliException):
     pass
+
+
+class MalformedStats(AlgoCliException):
+    pass

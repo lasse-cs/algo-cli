@@ -104,3 +104,10 @@ class RunTestResult:
 class CurrentState(BaseModel):
     problem_id: str | None = None
     attempt_id: str | None = None
+
+
+class ProblemStats(BaseModel):
+    problem_id: str
+    total_runs: int = 0
+    successful_runs: int = 0
+    failed_runs: int = 0
