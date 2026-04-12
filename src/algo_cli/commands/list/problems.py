@@ -24,7 +24,7 @@ def list_problems():
 
 
 def problems_to_table(problems: list[Problem]) -> Table:
-    table = Table("ID", "Title")
+    table = Table("ID", "Title", title="Problems")
     for problem in problems:
         table.add_row(problem.id, problem.title)
     return table
