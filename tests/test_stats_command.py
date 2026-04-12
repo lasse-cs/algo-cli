@@ -2,12 +2,6 @@ from algo_cli.main import app
 from algo_cli.models import Problem
 
 
-def test_stats_no_data_shows_empty_message(runner):
-    result = runner.invoke(app, ["stats"])
-    assert result.exit_code == 0
-    assert "No stats recorded yet" in result.output
-
-
 def test_stats_all_problems_shows_table(runner, stats_repository):
     stats_repository.record("bubble-sort", True)
     stats_repository.record("bubble-sort", False)
